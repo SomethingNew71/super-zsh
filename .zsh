@@ -16,7 +16,7 @@ autoload -Uz compinit
 
 # My Custom Aliases
 cd ~/Documents/proj
-alias proj='cd ~/Documents/proj'
+alias proj='cd ~/Development'
 alias lp="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 
 if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
