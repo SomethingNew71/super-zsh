@@ -17,7 +17,12 @@ autoload -Uz compinit
 # My Custom Aliases
 cd ~/Documents/proj
 alias proj='cd ~/Development'
+alias gs="git status"
 alias lp="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+current_user=$USER
+node_version=$(node -v 2>/dev/null)
+RPROMPT='%F{green}⬢ ${node_version} %F{yellow}- %F{cyan}${current_user}'
 
 if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
     compinit;
