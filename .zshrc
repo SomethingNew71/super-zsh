@@ -3,19 +3,8 @@ HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 bindkey -e
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-zstyle :compinstall filename '/Users/cole/.zshrc'
 
-autoload -Uz compinit
-compinit
-# End of lines added by compinstall
-# stop these errors https://github.com/asdf-vm/asdf/issues/266
-# & make it fast https://carlosbecker.com/posts/speeding-up-zsh/
-autoload -Uz compinit
-
-# My Custom Aliases
-cd ~/Documents/proj
+cd ~/Development
 alias proj='cd ~/Development'
 alias gs="git status"
 alias lp="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
@@ -23,65 +12,42 @@ alias lcc='colorls -lA --sd'
 alias lca='colorls -a --sd -sf'
 alias lct='colorls --tree=2'
 
+export ZSH="/usr/local/opt/zplug/repos/robbyrussell/oh-my-zsh"
+
+ZSH_THEME="oxide"
+COMPLETION_WAITING_DOTS="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+plugins=(
+    git
+    github
+    node
+    zsh-history-substring-search
+    zsh-syntax-highlighting
+    zsh-completions
+    zsh-autosuggestions
+    command-not-found
+    autojump
+    compleat
+    ssh-agent
+    clipboard
+    safe-paste
+)
+
 current_user=$USER
 node_version=$(node -v 2>/dev/null)
 RPROMPT='%F{green}⬢ ${node_version} %F{yellow}- %F{cyan}${current_user}'
 
-if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
-    compinit;
-else
-    compinit -C;
-fi;
+autoload -U compinit && compinit
 
-##########################################################
-export ZPLUG_HOME=/usr/local/opt/zplug
-source $ZPLUG_HOME/init.zsh
-# ColorLS plugin needs manual installing - https://github.com/athityakumar/colorls#custom-configurations
+source $ZSH/oh-my-zsh.sh
 source $(dirname $(gem which colorls))/tab_complete.sh
 
-# Make sure to use double quotes #########################
-zplug "zsh-users/zsh-history-substring-search"
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-autosuggestions"
-#zsh-completions
-fpath=(/usr/local/share/zsh-completions $fpath)
-
-# oh-my-zsh ##############################################
-zplug "plugins/git", from:oh-my-zsh
-zplug "plugins/github", from:oh-my-zsh
-zplug "plugins/command-not-found", from:oh-my-zsh
-zplug "plugins/autojump", from:oh-my-zsh
-zplug "plugins/compleat", from:oh-my-zsh
-zplug "plugins/ssh-agent", from:oh-my-zsh
-# Node Plugins
-zplug "plugins/node", from:oh-my-zsh
-
-# Load if "if" tag returns true
-zplug "lib/clipboard", from:oh-my-zsh
-zplug "oz/safe-paste"
-
-# Note: To specify the order in which packages should be loaded, use the defer
-#       tag described in the next section
-
-# Set the priority when loading
-# e.g., zsh-syntax-highlighting must be loaded
-# after executing compinit command and sourcing other plugins
-# (If the defer tag is given 2 or above, run after compinit command)
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-
-# Load theme file ########################################
-# zplug denysdovhan/spaceship-prompt, use:spaceship.zsh, from:github, as:theme
-zplug dikiaap/dotfiles, use:.oh-my-zsh/themes/oxide.zsh-theme, from:github, as:theme
-
-# Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
+if [[ -n $SSH_CONNECTION ]]; then
+    export EDITOR='nano'
+else
+    export EDITOR='nano'
 fi
-
-zplug load
 
 ##############################
 # CORPORATE PROXY COMMANDS
