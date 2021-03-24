@@ -2,6 +2,8 @@
 
 # Super ZSH - My Personal ZSH Config
 
+![Example of terminal](https://classicminidiy.s3.amazonaws.com/Generic+Hosting/example.png)
+
 Long term tracking locaiton for my ZSH configuration to easily add to any new computer I may get. 
 
 - `.zshrc` file with all my own aliases and configurations
