@@ -38,7 +38,6 @@ plugins=(
     safe-paste
 )
 
-
 autoload -U compinit && compinit
 
 source $ZSH/oh-my-zsh.sh
