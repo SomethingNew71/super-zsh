@@ -14,6 +14,10 @@ alias lct='colorls --tree=2'
 
 export ZSH="/usr/local/opt/zplug/repos/robbyrussell/oh-my-zsh"
 
+current_user=$USER
+node_version=$(node -v 2>/dev/null)
+RPROMPT='%F{green}⬢ ${node_version} %F{yellow}- %F{cyan}${current_user}'
+
 ZSH_THEME="oxide"
 COMPLETION_WAITING_DOTS="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
@@ -34,9 +38,6 @@ plugins=(
     safe-paste
 )
 
-current_user=$USER
-node_version=$(node -v 2>/dev/null)
-RPROMPT='%F{green}⬢ ${node_version} %F{yellow}- %F{cyan}${current_user}'
 
 autoload -U compinit && compinit
 
@@ -54,12 +55,30 @@ fi
 ##############################
 PROXY_URL="ENTER YOUR DUMB PROXY HERE"
 
+# Fixes any special characters used in your passwords
+rawurlencode() {
+  local string="${1}"
+  local strlen=${#string}
+  local encoded=""
+  local pos c o
+
+  for (( pos=0 ; pos<strlen ; pos++ )); do
+     c=${string:$pos:1}
+     case "$c" in
+        [-_.~a-zA-Z0-9] ) o="${c}" ;;
+        * )               printf -v o '%%%02x' "'$c"
+     esac
+     encoded+="${o}"
+  done
+  echo "${encoded}"
+}
+
 proxy-on() {
     echo "Enter your username:"
     read USERNAME
     echo "Please enter your password:"
     read -s PASSWORD
-    PROXY="http://${USERNAME}:${PASSWORD}@${PROXY_URL}"
+    PROXY="http://${USERNAME}:$(rawurlencode "$PASSWORD")@${PROXY_URL}"
     export https_proxy=${PROXY}
     export HTTPS_PROXY=${PROXY}
     export http_proxy=${PROXY}
