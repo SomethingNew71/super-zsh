@@ -106,10 +106,10 @@ proxy-off() {
     unset no_proxy
     unset NO_PROXY
     export NODE_TLS_REJECT_UNAUTHORIZED=1
-    git config --global unset http.proxy
-    git config --global unset https.proxy
-    git config --global unset http.sslVerify "false"
-    git config --global unset url."https://".insteadOf "git://"
+    git config --global --unset http.proxy
+    git config --global --unset https.proxy
+    git config --global --unset http.sslVerify "false"
+    git config --global --unset url."https://".insteadOf "git://"
     npm config delete ca=""
     # npm config set registry "SPECIAL REGISTRY GOES HERE"
     npm config set strict-ssl true
