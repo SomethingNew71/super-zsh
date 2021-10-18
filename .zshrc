@@ -1,7 +1,7 @@
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=10000
+SAVEHIST=10000
 bindkey -e
 
 cd ~/Development
@@ -13,10 +13,6 @@ alias lca='colorls -a --sd -sf'
 alias lct='colorls --tree=2'
 
 export ZSH="/usr/local/opt/zplug/repos/robbyrussell/oh-my-zsh"
-
-current_user=$USER
-node_version=$(node -v 2>/dev/null)
-RPROMPT='%F{green}⬢ ${node_version} %F{yellow}- %F{cyan}${current_user}'
 
 ZSH_THEME="oxide"
 COMPLETION_WAITING_DOTS="true"
@@ -37,6 +33,10 @@ plugins=(
     clipboard
     safe-paste
 )
+
+current_user=$USER
+node_version=$(node -v 2>/dev/null)
+RPROMPT='%F{green}⬢ ${node_version} %F{yellow}- %F{cyan}${current_user}'
 
 autoload -U compinit && compinit
 
